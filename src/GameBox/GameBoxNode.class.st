@@ -16,6 +16,11 @@ GameBoxNode >> addElement: aGBFPSCount [
 	
 ]
 
+{ #category : #'as yet unclassified' }
+GameBoxNode >> addedTo: aNode [
+	aNode announcer when: GBAnnouncement  do: [:evt | announcer announce: evt ] 
+]
+
 { #category : #initialization }
 GameBoxNode >> announcer [
 	^ announcer
@@ -45,9 +50,4 @@ GameBoxNode >> initialize [
 	
 	self class initializeSlots: self.
 	super initialize.
-]
-
-{ #category : #initialization }
-GameBoxNode >> step: increment [
-	children do: [ :child | child step: increment ]
 ]

@@ -1,6 +1,6 @@
 Class {
 	#name : #GBStepIncrement,
-	#superclass : #Announcement,
+	#superclass : #GBAnnouncement,
 	#instVars : [
 		'lastTime',
 		'updateTime',
@@ -11,7 +11,7 @@ Class {
 
 { #category : #'as yet unclassified' }
 GBStepIncrement >> deltaTime [
-	^ (updateTime - lastTime) nanoSeconds 
+	^ (updateTime - lastUpdate) 
 ]
 
 { #category : #initialization }

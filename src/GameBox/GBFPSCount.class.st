@@ -1,6 +1,6 @@
 Class {
 	#name : #GBFPSCount,
-	#superclass : #GBDrawable,
+	#superclass : #GBStepScript,
 	#instVars : [
 		'label'
 	],
@@ -8,13 +8,12 @@ Class {
 }
 
 { #category : #initialization }
-GBFPSCount >> initCanvas: aCanvas [
-	label := TRLabelShape new.
-	aCanvas addShape: label.
+GBFPSCount >> label: aLabel [
+	label := aLabel
 ]
 
 { #category : #initialization }
 GBFPSCount >> step: increment [
 	label
-		text: ((1000000000 / increment deltaTime) asFloat round: 2) asString
+		text: ((1000/increment deltaTime asMilliSeconds asFloat) roundTo: 0.01)  asString
 ]

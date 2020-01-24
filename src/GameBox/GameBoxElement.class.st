@@ -9,10 +9,6 @@ GameBoxElement >> addedTo: aNode [
 ]
 
 { #category : #initialization }
-GameBoxElement >> initCanvas: aCanvas [
-]
-
-{ #category : #initialization }
-GameBoxElement >> step: increment [
-	
+GameBoxElement >> children [
+	^ {}
 ]

@@ -1,18 +1,18 @@
 Class {
-	#name : #GBDrawableAdded,
+	#name : #GBCameraDrawing,
 	#superclass : #GBAnnouncement,
 	#instVars : [
-		'model'
+		'canvas'
 	],
 	#category : #GameBox
 }
 
 { #category : #'as yet unclassified' }
-GBDrawableAdded >> model [
-	^ model
+GBCameraDrawing >> canvas [
+	^ canvas
 ]
 
 { #category : #'as yet unclassified' }
-GBDrawableAdded >> model: aGBFPSCount [ 
-	model := aGBFPSCount
+GBCameraDrawing >> canvas: anAthensCairoCanvas [ 
+	canvas := anAthensCairoCanvas 
 ]
