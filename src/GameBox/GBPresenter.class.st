@@ -42,7 +42,7 @@ GBPresenter class >> open: aGameBox [
 
 { #category : #initialization }
 GBPresenter >> createNewFab: selection [
-	sceneft selectedItem addElement: selection new.
+	sceneft selectedItem addElement: selection build.
 	
 	sceneft roots: sceneft roots
 ]
@@ -62,7 +62,7 @@ GBPresenter >> initializeWidgets [
 				[ :selection | selection selectedItem inspect];
 		children: [ :item | item children ].
 	fabft
-		roots: {GBFab};
+		roots: GBFab subclasses;
 		activateOnDoubleClick;
 		whenActivatedDo:
 				[ :selection | self createNewFab: selection selectedItem];

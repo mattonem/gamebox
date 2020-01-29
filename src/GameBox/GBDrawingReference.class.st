@@ -2,7 +2,8 @@ Class {
 	#name : #GBDrawingReference,
 	#superclass : #GameBoxNode,
 	#instVars : [
-		'#position => InitializedSlot default: (0@0)'
+		'#position => InitializedSlot default: (0@0)',
+		'#angle => InitializedSlot default: 0'
 	],
 	#category : #GameBox
 }
@@ -17,8 +18,10 @@ GBDrawingReference >> addedTo: aNode [
 { #category : #'as yet unclassified' }
 GBDrawingReference >> drawChildren: anAthensCairoCanvas [
 	anAthensCairoCanvas pathTransform translateBy: (position).
+	anAthensCairoCanvas pathTransform rotateByRadians: angle.
 	announcer announce: (GBCameraDrawing new canvas: anAthensCairoCanvas).
-	anAthensCairoCanvas pathTransform translateBy: -1 * (position)
+	anAthensCairoCanvas pathTransform translateBy: -1 * (position).
+	anAthensCairoCanvas pathTransform rotateByRadians: -1 * angle.
 ]
 
 { #category : #initialization }

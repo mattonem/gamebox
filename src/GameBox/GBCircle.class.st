@@ -2,42 +2,35 @@ Class {
 	#name : #GBCircle,
 	#superclass : #GBDrawable,
 	#instVars : [
-		'shape',
-		'radius',
-		'position'
+		'#radius => InitializedSlot default: 5',
+		'#color => InitializedSlot default: Color paleBlue'
 	],
 	#category : #GameBox
 }
 
+{ #category : #'as yet unclassified' }
+GBCircle >> color: aColor [ 
+	color := aColor
+]
+
 { #category : #initialization }
 GBCircle >> drawOn: acanvas [
 	| ellipsePath |
-	"acanvas paintTransform loadIdentity."
 	ellipsePath := acanvas
 		createPath: [ :builder | 
 			builder
-				moveTo: position;
 				moveTo: 0 @ radius;
 				cwArcTo: 0 @ (-2 * radius) angle: Float pi;
 				cwArcTo: 0 @ (2 * radius) angle: Float pi ].
-	acanvas setPaint: Color black.
+	acanvas setPaint: color.
 	acanvas drawShape: ellipsePath
 ]
 
 { #category : #initialization }
-GBCircle >> initCanvas: aCanvas [
-	shape := TREllipseShape new from: 0 @ 0 to: 2* (radius @ radius).
-	aCanvas addShape: shape
-]
-
-{ #category : #'as yet unclassified' }
-GBCircle >> position [
-	^ position
-]
-
-{ #category : #'as yet unclassified' }
-GBCircle >> position: aPoint [ 
-	position := aPoint
+GBCircle >> initialize [
+	
+	self class initializeSlots: self.
+	super initialize.
 ]
 
 { #category : #'as yet unclassified' }

@@ -58,6 +58,9 @@ GBCameraAthen >> refreshView: evt [
 	surface
 		drawDuring: [ :can | 
 			surface clear.
+			can
+				setPaint: Color white;
+				drawShape: (0 @ 0 corner: surface extent).
 			evt model announcer announce: (self drawingInstanceOn: can).
 			morph changed ]
 ]

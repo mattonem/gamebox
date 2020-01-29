@@ -9,14 +9,13 @@ Class {
 	#category : #GameBox
 }
 
-{ #category : #initialization }
-GBFPSCountFab >> initialize [ 	
-	|  |
-	super initialize.
+{ #category : #building }
+GBFPSCountFab class >> build [ 	
+	| label script ref |
 	label := GBLabel new.
 	script := GBFPSCount new label: label; yourself.
 	ref := GBDrawingReference new.
 	ref addElement: label.
-	self addElement: script.
-	self addElement: ref.
+	ref addElement: script.
+	^ ref.
 ]
