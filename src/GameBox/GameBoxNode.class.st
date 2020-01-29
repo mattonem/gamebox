@@ -18,7 +18,7 @@ GameBoxNode >> addElement: aGBFPSCount [
 
 { #category : #'as yet unclassified' }
 GameBoxNode >> addedTo: aNode [
-	aNode announcer when: GBAnnouncement  do: [:evt | announcer announce: evt ] 
+	aNode announcer when: self forwardEvent   do: [:evt | announcer announce: evt ] 
 ]
 
 { #category : #initialization }
@@ -38,6 +38,11 @@ GameBoxNode >> drawableAdded: aGBFPSCount [
 			(GBDrawableAdded new
 				model: aGBFPSCount;
 				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+GameBoxNode >> forwardEvent [
+	^ GBAnnouncement 
 ]
 
 { #category : #initialization }

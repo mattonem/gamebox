@@ -10,6 +10,7 @@ Class {
 
 { #category : #initialization }
 GBDrawingReference >> addedTo: aNode [
+	super addedTo: aNode.
 	aNode announcer
 		when: GBCameraDrawing
 		do: [ :evt | self drawChildren: evt canvas ]
@@ -22,6 +23,11 @@ GBDrawingReference >> drawChildren: anAthensCairoCanvas [
 	announcer announce: (GBCameraDrawing new canvas: anAthensCairoCanvas).
 	anAthensCairoCanvas pathTransform translateBy: -1 * (position).
 	anAthensCairoCanvas pathTransform rotateByRadians: -1 * angle.
+]
+
+{ #category : #initialization }
+GBDrawingReference >> forwardEvent [
+	^ super forwardEvent - GBCameraDrawing 
 ]
 
 { #category : #initialization }
