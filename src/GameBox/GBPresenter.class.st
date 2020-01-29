@@ -57,6 +57,9 @@ GBPresenter >> initializeWidgets [
 	fabft := self newTreeTable.
 	sceneft
 		roots: {};
+		activateOnDoubleClick;
+		whenActivatedDo:
+				[ :selection | selection selectedItem inspect];
 		children: [ :item | item children ].
 	fabft
 		roots: {GBFab};

@@ -3,7 +3,8 @@ Class {
 	#superclass : #GBFab,
 	#instVars : [
 		'script',
-		'label'
+		'label',
+		'ref'
 	],
 	#category : #GameBox
 }
@@ -14,6 +15,8 @@ GBFPSCountFab >> initialize [
 	super initialize.
 	label := GBLabel new.
 	script := GBFPSCount new label: label; yourself.
+	ref := GBDrawingReference new.
+	ref addElement: label.
 	self addElement: script.
-	self addElement: label.
+	self addElement: ref.
 ]
