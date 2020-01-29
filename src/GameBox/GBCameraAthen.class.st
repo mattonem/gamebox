@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'#lastUpdate => InitializedSlot default: [ DateAndTime now ]',
 		'#surface => InitializedSlot default: [ :inst | inst initSurface ]',
-		'#morph => LazySlot default: [ :inst | inst initMorph ]'
+		'#morph => LazySlot default: [ :inst | inst initMorph ]',
+		'#drawIngEvent => InitializedSlot default: [ GBCameraDrawing new ]'
 	],
 	#category : #GameBox
 }
@@ -14,6 +15,13 @@ GBCameraAthen >> addedTo: aScene [
 	aScene announcer
 		when: GBStepFinished
 		do: [ :evt | self refreshView: evt ].
+]
+
+{ #category : #accessing }
+GBCameraAthen >> drawingInstanceOn: can [
+	^ drawIngEvent
+		canvas: can;
+		yourself
 ]
 
 { #category : #accessing }
@@ -50,11 +58,7 @@ GBCameraAthen >> refreshView: evt [
 	surface
 		drawDuring: [ :can | 
 			surface clear.
-			evt model announcer
-				announce:
-					(GBCameraDrawing new
-						canvas: can;
-						yourself).
+			evt model announcer announce: (self drawingInstanceOn: can).
 			morph changed ]
 ]
 

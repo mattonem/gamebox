@@ -6,8 +6,9 @@ Class {
 		'pause',
 		'morph',
 		'model',
-		'ft',
-		'ds'
+		'step',
+		'sceneft',
+		'fabft'
 	],
 	#category : #GameBox
 }
@@ -16,13 +17,18 @@ Class {
 GBPresenter class >> defaultSpec [
 	^ SpBoxLayout newVertical
 		add:
-			(SpBoxLayout newHorizontal
+			(SpPanedLayout newHorizontal
+				add:
+					(SpPanedLayout newVertical
+						add: #sceneft;
+						add: #fabft;
+						yourself);
 				add: #morph;
-				add: #ft;
 				yourself);
 		add:
 			(SpBoxLayout newHorizontal
 				add: #play;
+				add: #step;
 				add: #pause;
 				yourself)
 			withConstraints: [ :constraints | constraints height: self toolbarHeight ];
@@ -35,22 +41,37 @@ GBPresenter class >> open: aGameBox [
 ]
 
 { #category : #initialization }
+GBPresenter >> createNewFab: selection [
+	sceneft selectedItem addElement: selection new.
+	
+	sceneft roots: sceneft roots
+]
+
+{ #category : #initialization }
 GBPresenter >> initializeWidgets [
 	play := self newButton.
 	pause := self newButton.
+	step := self newButton.
 	morph := self newMorph.
-	ft := self newMorph.
-	ds := FTBasicTreeListDataSource new
-		root: nil;
-		children: [ :item | item children ];
-		display: [ :item :cell | cell addMorphBack: item printString asMorph ];
-		yourself.
-	ft morph: (FTTableMorph new extent: 200 @ 200; dataSource: ds; yourself).
+	sceneft := self newTreeTable.
+	fabft := self newTreeTable.
+	sceneft
+		roots: {};
+		children: [ :item | item children ].
+	fabft
+		roots: {GBFab};
+		activateOnDoubleClick;
+		whenActivatedDo:
+				[ :selection | self createNewFab: selection selectedItem];
+		children: [ :aClass | aClass subclasses ].
 	morph
 		morph:
 			(Morph new
 				extent: 400 @ 400;
 				yourself).
+	step
+		icon: GLMUIThemeExtraIcons glamorousInto;
+		action: [ model step ].
 	play
 		icon: GLMUIThemeExtraIcons glamorousPlay;
 		action: [ model play ].
@@ -66,5 +87,5 @@ GBPresenter >> initializeWidgets [
 GBPresenter >> model: aGameBox [ 
 	model := aGameBox.
 	morph morph: model camera morph.
-	ds root: model.
+	sceneft roots: {model}.
 ]

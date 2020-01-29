@@ -1,6 +1,6 @@
 Class {
 	#name : #GBFPSCountFab,
-	#superclass : #GameBoxNode,
+	#superclass : #GBFab,
 	#instVars : [
 		'script',
 		'label'

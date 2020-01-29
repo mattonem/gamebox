@@ -5,7 +5,8 @@ Class {
 		'#lastUpdate => InitializedSlot default: [ DateAndTime now ]',
 		'#process => InitializedSlot default: [ [  ] fork ]',
 		'#camera',
-		'#eventInst => InitializedSlot default: [ GBStepIncrement new ]'
+		'#eventInst => InitializedSlot default: [ GBStepIncrement new ]',
+		'#activeKeys => InitializedSlot default: [ Set new ]'
 	],
 	#category : #GameBox
 }
@@ -37,7 +38,7 @@ GameBox >> newStepIncrement [
 	| now  |
 	now := DateAndTime now.
 	{0 seconds.
-	(20 milliSeconds - (lastUpdate - now))} max wait.
+	(20 milliSeconds - (now - lastUpdate))} max wait.
 	now := DateAndTime now.
 	eventInst 
 		lastUpdate: lastUpdate;
@@ -62,25 +63,4 @@ GameBox >> play [
 GameBox >> step [
 	announcer announce: self newStepIncrement.
 	^ announcer announce: self newStepFinished
-]
-
-{ #category : #'as yet unclassified' }
-GameBox >> trachelCanvas [
-	| c |
-	c := TRCanvas new.
-	children do: [ :child |  child initCanvas: c ].
-	c
-		addAnimation:
-			(RTActiveAnimation new
-				intervalInMilliseconds: 20;
-				blockToExecute: [ | newUpdate delta |
-					newUpdate := DateAndTime now.
-					delta := (newUpdate - lastUpdate) asNanoSeconds.
-					self
-						step:
-							(GBStepIncrement new
-								deltaTime: delta;
-								yourself).
-					lastUpdate := newUpdate ]).
-	^ c
 ]
