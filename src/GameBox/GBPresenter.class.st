@@ -47,25 +47,45 @@ GBPresenter >> createNewFab: selection [
 	sceneft roots: sceneft roots
 ]
 
+{ #category : #'as yet unclassified' }
+GBPresenter >> deleteSelectedElement [
+	sceneft roots
+		detect: [ :aroot | aroot includesElement: sceneft selectedItem ]
+		ifFound: [ :aroot | 
+			aroot
+				withParentOf: sceneft selectedItem
+				do: [ :parent | parent removeElement: sceneft selectedItem ] ].
+	sceneft roots: sceneft roots
+]
+
 { #category : #initialization }
 GBPresenter >> initializeWidgets [
+	| menu |
 	play := self newButton.
 	pause := self newButton.
 	step := self newButton.
 	morph := self newMorph.
 	sceneft := self newTreeTable.
 	fabft := self newTreeTable.
+	menu := self newMenu.
+	menu
+		title: 'edit';
+		addGroup: [ :group | 
+			group
+				addItem: [ :anItem | 
+					anItem
+						name: 'delete';
+						action: [ self deleteSelectedElement ] ] ].
 	sceneft
 		roots: {};
 		activateOnDoubleClick;
-		whenActivatedDo:
-				[ :selection | selection selectedItem inspect];
+		contextMenu: menu;
+		whenActivatedDo: [ :selection | selection selectedItem inspect ];
 		children: [ :item | item children ].
 	fabft
 		roots: GBFab subclasses;
 		activateOnDoubleClick;
-		whenActivatedDo:
-				[ :selection | self createNewFab: selection selectedItem];
+		whenActivatedDo: [ :selection | self createNewFab: selection selectedItem ];
 		children: [ :aClass | aClass subclasses ].
 	morph
 		morph:

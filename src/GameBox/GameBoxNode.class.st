@@ -45,6 +45,13 @@ GameBoxNode >> forwardEvent [
 	^ GBAnnouncement 
 ]
 
+{ #category : #'as yet unclassified' }
+GameBoxNode >> includesElement: aGBCircle [
+	^ self == aGBCircle
+		ifTrue: [ true ]
+		ifFalse: [ ^ children anySatisfy: [ :c | c includesElement: aGBCircle ] ]
+]
+
 { #category : #initialization }
 GameBoxNode >> initCanvas: aCanvas [
 	children do: [ :child | child initCanvas: aCanvas ]
@@ -55,4 +62,18 @@ GameBoxNode >> initialize [
 	
 	self class initializeSlots: self.
 	super initialize.
+]
+
+{ #category : #'as yet unclassified' }
+GameBoxNode >> removeElement: aGBCircle [ 
+	children remove: aGBCircle.
+	aGBCircle deleteFrom: self
+]
+
+{ #category : #'as yet unclassified' }
+GameBoxNode >> withParentOf: aSpTreeTablePresenter do: aBlockClosure [
+	^ (children includes: aSpTreeTablePresenter)
+		ifTrue: [ aBlockClosure value: self ]
+		ifFalse: [ children
+				do: [ :c | c withParentOf: aSpTreeTablePresenter do: aBlockClosure ] ]
 ]
