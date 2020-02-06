@@ -8,6 +8,11 @@ Class {
 	#category : #GameBox
 }
 
+{ #category : #'as yet unclassified' }
+GBDrawingReference >> accept: aGBPresenter [ 
+	^ aGBPresenter visitGBDrawingReference: self
+]
+
 { #category : #initialization }
 GBDrawingReference >> addedTo: aNode [
 	super addedTo: aNode.

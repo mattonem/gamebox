@@ -23,6 +23,11 @@ GBLabel >> initialize [
 ]
 
 { #category : #'as yet unclassified' }
+GBLabel >> text [
+	^ text
+]
+
+{ #category : #'as yet unclassified' }
 GBLabel >> text: aString [ 
 	text := aString
 ]

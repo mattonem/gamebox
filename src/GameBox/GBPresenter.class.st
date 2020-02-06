@@ -42,8 +42,8 @@ GBPresenter class >> open: aGameBox [
 
 { #category : #initialization }
 GBPresenter >> createNewFab: selection [
-	sceneft selectedItem addElement: selection build.
-	
+	sceneft selectedItem
+		addElement: (selection methodClass instanceSide perform: selection methodSelector).
 	sceneft roots: sceneft roots
 ]
 
@@ -58,15 +58,25 @@ GBPresenter >> deleteSelectedElement [
 	sceneft roots: sceneft roots
 ]
 
+{ #category : #'as yet unclassified' }
+GBPresenter >> export: aGBDrawingReference [
+	^ (STON toString: aGBDrawingReference) inspect
+]
+
+{ #category : #'as yet unclassified' }
+GBPresenter >> exportSelectedElement [
+	self export: sceneft selectedItem
+]
+
 { #category : #initialization }
 GBPresenter >> initializeWidgets [
-	| menu |
+	| menu fabs |
 	play := self newButton.
 	pause := self newButton.
 	step := self newButton.
 	morph := self newMorph.
 	sceneft := self newTreeTable.
-	fabft := self newTreeTable.
+	fabft := self newTable.
 	menu := self newMenu.
 	menu
 		title: 'edit';
@@ -75,22 +85,33 @@ GBPresenter >> initializeWidgets [
 				addItem: [ :anItem | 
 					anItem
 						name: 'delete';
-						action: [ self deleteSelectedElement ] ] ].
+						action: [ self deleteSelectedElement ] ].
+			group
+				addItem: [ :anItem | 
+					anItem
+						name: 'export';
+						action: [ self exportSelectedElement ] ] ].
 	sceneft
 		roots: {};
 		activateOnDoubleClick;
+		addColumn: (SpStringTableColumn evaluated: #name);
 		contextMenu: menu;
 		whenActivatedDo: [ :selection | selection selectedItem inspect ];
 		children: [ :item | item children ].
+	fabs := (PragmaCollector
+		filter: [ :prg | prg selector = 'gbPrefab:' ]) reset collected.
 	fabft
-		roots: GBFab subclasses;
+		items: fabs;
+		addColumn:
+			(SpStringTableColumn
+				title: 'Name'
+				evaluated: [ :e | e arguments first ]);
 		activateOnDoubleClick;
-		whenActivatedDo: [ :selection | self createNewFab: selection selectedItem ];
-		children: [ :aClass | aClass subclasses ].
+		whenActivatedDo: [ :selection | self createNewFab: selection selectedItem ].
 	morph
 		morph:
 			(Morph new
-				extent: 400 @ 400;
+				extent: 1024 @ 576;
 				yourself).
 	step
 		icon: GLMUIThemeExtraIcons glamorousInto;
@@ -110,5 +131,6 @@ GBPresenter >> initializeWidgets [
 GBPresenter >> model: aGameBox [ 
 	model := aGameBox.
 	morph morph: model camera morph.
+	
 	sceneft roots: {model}.
 ]

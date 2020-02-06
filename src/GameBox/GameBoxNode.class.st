@@ -8,6 +8,12 @@ Class {
 	#category : #GameBox
 }
 
+{ #category : #'ston-core' }
+GameBoxNode class >> stonAllInstVarNames [ 
+	^super stonAllInstVarNames asOrderedCollection remove: #announcer; yourself
+	
+]
+
 { #category : #'as yet unclassified' }
 GameBoxNode >> addElement: aGBFPSCount [ 
 	children add: aGBFPSCount.

@@ -26,12 +26,14 @@ GBCameraAthen >> drawingInstanceOn: can [
 
 { #category : #accessing }
 GBCameraAthen >> initMorph [
-	^ surface asMorph
+	| inst |
+	inst := GBImageMorph new form: surface asForm.
+	^ inst
 ]
 
 { #category : #accessing }
 GBCameraAthen >> initSurface [
-	^ AthensCairoSurface extent: 500 @ 300.
+	^ AthensCairoSurface extent: 1024 @ 576.
 ]
 
 { #category : #initialization }
