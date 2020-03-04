@@ -11,6 +11,11 @@ Class {
 }
 
 { #category : #accessing }
+GBCameraAthen >> activeKeys [ 	
+	^ morph activeKeys
+]
+
+{ #category : #accessing }
 GBCameraAthen >> addedTo: aScene [
 	aScene announcer
 		when: GBStepFinished

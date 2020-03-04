@@ -22,12 +22,23 @@ GBDrawingReference >> addedTo: aNode [
 ]
 
 { #category : #'as yet unclassified' }
+GBDrawingReference >> angle [
+	^ angle
+]
+
+{ #category : #'as yet unclassified' }
+GBDrawingReference >> angle: deg [ 
+	Transcript show: angle.
+	angle := deg 
+]
+
+{ #category : #'as yet unclassified' }
 GBDrawingReference >> drawChildren: anAthensCairoCanvas [
-	anAthensCairoCanvas pathTransform translateBy: (position).
 	anAthensCairoCanvas pathTransform rotateByRadians: angle.
+	anAthensCairoCanvas pathTransform translateBy: position.
 	announcer announce: (GBCameraDrawing new canvas: anAthensCairoCanvas).
-	anAthensCairoCanvas pathTransform translateBy: -1 * (position).
-	anAthensCairoCanvas pathTransform rotateByRadians: -1 * angle.
+	anAthensCairoCanvas pathTransform translateBy: -1 * position.
+	anAthensCairoCanvas pathTransform rotateByRadians: -1 * angle
 ]
 
 { #category : #initialization }

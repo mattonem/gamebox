@@ -4,10 +4,22 @@ Class {
 	#instVars : [
 		'lastTime',
 		'updateTime',
-		'lastUpdate'
+		'lastUpdate',
+		'activeKeys',
+		'model'
 	],
 	#category : #GameBox
 }
+
+{ #category : #accessing }
+GBStepIncrement >> activeKeys [
+	^ activeKeys
+]
+
+{ #category : #accessing }
+GBStepIncrement >> activeKeys: anObject [
+	activeKeys := anObject
+]
 
 { #category : #'as yet unclassified' }
 GBStepIncrement >> deltaTime [
@@ -24,6 +36,16 @@ GBStepIncrement >> initialize [
 { #category : #'as yet unclassified' }
 GBStepIncrement >> lastUpdate: aDateAndTime [ 
 	lastUpdate := aDateAndTime 
+]
+
+{ #category : #accessing }
+GBStepIncrement >> model [
+	^ model
+]
+
+{ #category : #accessing }
+GBStepIncrement >> model: anObject [
+	model := anObject
 ]
 
 { #category : #'as yet unclassified' }

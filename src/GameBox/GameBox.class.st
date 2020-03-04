@@ -5,11 +5,16 @@ Class {
 		'#lastUpdate => InitializedSlot default: [ DateAndTime now ]',
 		'#process => InitializedSlot default: [ [  ] fork ]',
 		'#camera',
-		'#eventInst => InitializedSlot default: [ GBStepIncrement new ]',
+		'#eventInst => InitializedSlot default: [ :inst | \rGBStepIncrement new\r\tmodel: inst;\r\tyourself ]',
 		'#activeKeys => InitializedSlot default: [ Set new ]'
 	],
 	#category : #GameBox
 }
+
+{ #category : #'as yet unclassified' }
+GameBox >> activeKeys [ 
+	^ camera activeKeys
+]
 
 { #category : #'as yet unclassified' }
 GameBox >> camera [
@@ -42,6 +47,7 @@ GameBox >> newStepIncrement [
 	now := DateAndTime now.
 	eventInst 
 		lastUpdate: lastUpdate;
+		activeKeys: self activeKeys;
 		updateTime: now.
 	lastUpdate := now.
 	^ eventInst
