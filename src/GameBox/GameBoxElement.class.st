@@ -2,6 +2,7 @@ Class {
 	#name : #GameBoxElement,
 	#superclass : #Object,
 	#instVars : [
+		'#announcer => InitializedSlot default: [ Announcer new ]',
 		'#name => InitializedSlot default: [ :obj | obj asString ]'
 	],
 	#category : #GameBox
@@ -14,6 +15,11 @@ GameBoxElement >> accept: aGBPresenter [
 
 { #category : #initialization }
 GameBoxElement >> addedTo: aNode [
+]
+
+{ #category : #initialization }
+GameBoxElement >> announcer [
+	^ announcer
 ]
 
 { #category : #initialization }

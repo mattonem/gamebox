@@ -6,7 +6,7 @@ Class {
 
 { #category : #initialization }
 GBDrawable >> addedTo: aNode [
-	aNode announcer when: GBCameraDrawing do: [ :evt | self drawOn: evt canvas ].
+	announcer when: GBCameraDrawing do: [ :evt | self drawOn: evt canvas ].
 	
 ]
 

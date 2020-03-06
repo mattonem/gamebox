@@ -115,7 +115,7 @@ GBPresenter >> initializeWidgets [
 				yourself).
 	step
 		icon: GLMUIThemeExtraIcons glamorousInto;
-		action: [ model step ].
+		action: [ model step100 ].
 	play
 		icon: GLMUIThemeExtraIcons glamorousPlay;
 		action: [ model play ].

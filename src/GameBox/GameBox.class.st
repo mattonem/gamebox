@@ -60,6 +60,7 @@ GameBox >> pause [
 
 { #category : #'as yet unclassified' }
 GameBox >> play [
+	lastUpdate := DateAndTime now.
 	process isTerminated
 		ifTrue:
 			[ process := [ [ self step ] repeat ] fork ]
@@ -67,6 +68,19 @@ GameBox >> play [
 
 { #category : #'as yet unclassified' }
 GameBox >> step [
-	announcer announce: self newStepIncrement.
-	^ announcer announce: self newStepFinished
+	| inc finished |
+	inc := self newStepIncrement.
+	children do: [ :c | c announcer announce: inc ].
+	finished := self newStepFinished.
+	children do: [ :c | c announcer announce: finished ]
+]
+
+{ #category : #'as yet unclassified' }
+GameBox >> step100 [
+	| inc finished |
+	lastUpdate := DateAndTime now - 100 milliSeconds.
+	inc := self newStepIncrement.
+	children do: [ :c | c announcer announce: inc ].
+	finished := self newStepFinished.
+	children do: [ :c | c announcer announce: finished ]
 ]

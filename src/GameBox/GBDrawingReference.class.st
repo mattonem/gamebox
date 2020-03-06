@@ -16,9 +16,9 @@ GBDrawingReference >> accept: aGBPresenter [
 { #category : #initialization }
 GBDrawingReference >> addedTo: aNode [
 	super addedTo: aNode.
-	aNode announcer
+	announcer
 		when: GBCameraDrawing
-		do: [ :evt | self drawChildren: evt canvas ]
+		do: [ :evt | self drawChildren: evt canvas evt: evt]
 ]
 
 { #category : #'as yet unclassified' }
@@ -33,10 +33,10 @@ GBDrawingReference >> angle: deg [
 ]
 
 { #category : #'as yet unclassified' }
-GBDrawingReference >> drawChildren: anAthensCairoCanvas [
+GBDrawingReference >> drawChildren: anAthensCairoCanvas evt: evt [
 	anAthensCairoCanvas pathTransform rotateByRadians: angle.
 	anAthensCairoCanvas pathTransform translateBy: position.
-	announcer announce: (GBCameraDrawing new canvas: anAthensCairoCanvas).
+	children do: [ :child | child announcer announce: evt ].
 	anAthensCairoCanvas pathTransform translateBy: -1 * position.
 	anAthensCairoCanvas pathTransform rotateByRadians: -1 * angle
 ]
@@ -51,6 +51,11 @@ GBDrawingReference >> initialize [
 	
 	self class initializeSlots: self.
 	super initialize.
+]
+
+{ #category : #'as yet unclassified' }
+GBDrawingReference >> position [
+	^ position
 ]
 
 { #category : #'as yet unclassified' }

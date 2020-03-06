@@ -7,7 +7,7 @@ Class {
 { #category : #initialization }
 GBStepScript >> addedTo: aNode [
 	super addedTo: aNode.
-	aNode announcer when: GBStepIncrement do: [ :evt | self step: evt ]
+	announcer when: GBStepIncrement do: [ :evt | self step: evt ]
 ]
 
 { #category : #initialization }

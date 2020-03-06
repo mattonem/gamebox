@@ -17,7 +17,7 @@ GBCameraAthen >> activeKeys [
 
 { #category : #accessing }
 GBCameraAthen >> addedTo: aScene [
-	aScene announcer
+	announcer
 		when: GBStepFinished
 		do: [ :evt | self refreshView: evt ].
 ]
