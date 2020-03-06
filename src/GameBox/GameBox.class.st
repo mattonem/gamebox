@@ -61,6 +61,7 @@ GameBox >> pause [
 { #category : #'as yet unclassified' }
 GameBox >> play [
 	lastUpdate := DateAndTime now.
+	camera morph takeKeyboardFocus.
 	process isTerminated
 		ifTrue:
 			[ process := [ [ self step ] repeat ] fork ]
