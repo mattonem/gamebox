@@ -1,12 +1,12 @@
 Class {
 	#name : #GBStepScript,
-	#superclass : #GameBoxNode,
+	#superclass : #GameBoxElement,
 	#category : #GameBox
 }
 
 { #category : #initialization }
-GBStepScript >> addedTo: aNode [
-	super addedTo: aNode.
+GBStepScript >> initialize [
+	super initialize.
 	announcer when: GBStepIncrement do: [ :evt | self step: evt ]
 ]
 
