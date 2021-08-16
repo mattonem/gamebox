@@ -12,11 +12,11 @@ BaselineOfGameBox >> baseline: spec [
 		spec baseline: 'AthensSVG' with: [ 
 			spec
 				loads: #( 'default' );
-				repository: 'github://pharo-contributions/Athens-SVG/src' ].
+				repository: 'github://pharo-contributions/Athens-SVG' ].
 		spec package: 'GameBox' with: [ spec requires: #(  ) ].
 		spec package: 'GameBox-Hexa' with: [ spec requires: #( GameBox ) ].
 		spec
 			package: 'GameBox-HotBalloon'
 			with: [ spec requires: #( GameBox ) ] ].
-	spec group: 'default' with: #( GameBox GameBox - Hexa )
+	spec group: 'default' with: #( GameBox 'GameBox-Hexa' )
 ]
