@@ -5,7 +5,7 @@ Class {
 		'#lastUpdate => InitializedSlot default: [ DateAndTime now ]',
 		'#process => InitializedSlot default: [ [  ] fork ]',
 		'#camera',
-		'#eventInst => InitializedSlot default: [ :inst | \rGBStepIncrement new\r\tmodel: inst;\r\tyourself ]',
+		'#eventInst => InitializedSlot default: [ :inst | \r\t\t  GBStepIncrement new\r\t\t\t  model: inst;\r\t\t\t  yourself ]',
 		'#activeKeys => InitializedSlot default: [ Set new ]'
 	],
 	#category : #GameBox
@@ -23,7 +23,8 @@ GameBox >> camera [
 
 { #category : #'as yet unclassified' }
 GameBox >> camera: aGBCamera [ 
-	camera := aGBCamera
+	camera := aGBCamera.
+	self addElement: camera
 ]
 
 { #category : #initialization }
